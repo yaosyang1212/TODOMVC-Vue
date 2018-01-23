@@ -21,6 +21,7 @@
         el: '#todoapp',
         data: {
             todos,
+            currentEditing:null
         },
         // 方法一：计算未完成数据的个数，会把数据缓存起来，计算属性要比方法更高效一些
         computed:{
