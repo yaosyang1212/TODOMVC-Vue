@@ -22,6 +22,12 @@
         data: {
             todos,
         },
+        // 方法一：计算未完成数据的个数，会把数据缓存起来，计算属性要比方法更高效一些
+        computed:{
+            leftCount:function(){
+                return this.todos.filter(item =>!item.completed).length;
+            }
+        },
         methods: {
             // 添加数据
             // addmessage:function(){
@@ -81,7 +87,12 @@
                 }
 
 
-            }
+            },
+            // 方法二：通过在methods方法里定义,定义此方法的话数据每次更新都会调用此方法，不推荐
+            // leftCount(){
+            //     return this.todos.filter(item =>!item.completed).length;
+            // }
+
 
         }
     })
