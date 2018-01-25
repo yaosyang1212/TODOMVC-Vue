@@ -17,16 +17,31 @@
             completed: true
         }
     ]
-    new Vue({
+    window.app = new Vue({
         el: '#todoapp',
         data: {
             todos,
-            currentEditing:null
+            currentEditing: null,
+            filterStat: 'all'
         },
         // 方法一：计算未完成数据的个数，会把数据缓存起来，计算属性要比方法更高效一些
-        computed:{
-            leftCount:function(){
-                return this.todos.filter(item =>!item.completed).length;
+        computed: {
+            leftCount: function () {
+                return this.todos.filter(item => !item.completed).length;
+            },
+            // 根据不同的hash值判断对应的显示页面
+            filterTodos: function () {
+                switch (this.filterStat) {
+                    case 'active':
+                        return this.todos.filter(item => !item.completed)
+                        break
+                    case 'completed':
+                        return this.todos.filter(item => item.completed)
+                        break
+                    default:
+                        return this.todos
+                        break
+                }
             }
         },
         methods: {
@@ -93,8 +108,30 @@
             // leftCount(){
             //     return this.todos.filter(item =>!item.completed).length;
             // }
+            //  当按下回车和失去焦点的时候进行数据保存
+            saveEdit(item, index, event) {
+                //获取文本中输入的数据
+                var editText = event.target.value.trim();
+                // 非空校验
+                // 如果是空需要把整条数据给删除
+                if (!editText.length) {
+                    return this.todos.splice(index, 1);
+                }
+                //   如果不是非空字符  就需要把用户输入的内容进行重新赋值
+                item.title = editText;
+                //去除edit的样式
+                this.currentEditing = null;
+            }
 
 
         }
     })
+    window.onhashchange = function () {
+        // console.log(window.location.hash);
+        var hash = window.location.hash.substr(2) || 'all';
+        window.app.filterStat = hash;
+
+    }
+    // 页面第一次加载的时候，手动加载一次
+    window.onhashchange()
 })(Vue)
