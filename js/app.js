@@ -69,8 +69,9 @@
                 //1、获取数组对象中的每个元素
                 var text = event.target.value.trim();
                 // console.log(text);
+                var lastId = this.todos[this.todos.length - 1]
 
-                var id = this.todos[this.todos.length - 1].id + 1;
+                var id = lastId ? lastId.id + 1 : 1;
                 // console.log(id);
 
                 // 每次输入都是未完成的状态
