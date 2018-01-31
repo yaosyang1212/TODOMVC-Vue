@@ -139,6 +139,18 @@
             }
 
 
+        },
+        // 定义局部自定义指令
+        directives:{
+            editingFocus:{
+                update:function(el,binding){
+                    // console.log(binding);
+                    if(binding.value){                       
+                        el.focus()
+                    }
+                    
+                }
+            }
         }
     })
     window.onhashchange = function () {

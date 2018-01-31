@@ -48,6 +48,7 @@
 						@keyup.esc='currentEditing=null'
 						@blur='saveEdit(item,index,$event)'
 						@keyUp.enter='saveEdit(item,index,$event)'
+						v-editing-focus='item===currentEditing'
 						>
 					</li>	
 
